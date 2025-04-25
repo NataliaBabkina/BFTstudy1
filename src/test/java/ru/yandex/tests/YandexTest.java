@@ -27,7 +27,7 @@ public class YandexTest extends BaseTest {
 
         YandexResultsPage yandexResultsPage = yandexMainPage.goToResultsPage();
 
-        yandexResultsPage.ClosePopup();
+        yandexResultsPage.closePopup();
         yandexResultsPage.verifyLogoIsVisible();
         yandexResultsPage.verifyLogoColor("#F8604A");
 

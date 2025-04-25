@@ -1,23 +1,19 @@
 package ru.yandex.page;
 
-import com.codeborne.selenide.SelenideElement;
+import ru.yandex.page.elements.SearchButton;
+import ru.yandex.page.elements.SearchInput;
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Selenide.$;
-
-
-public class YandexMainPage extends BasePage {
-    private final SelenideElement searchInput = $("#text");
-    private final SelenideElement searchButton = $("button[type='submit']");
+public class YandexMainPage {
+    private final SearchInput searchInput = new SearchInput();
+    private final SearchButton searchButton = new SearchButton();
 
     @Step("Ввод текста в поисковую строку")
     public void setSearchQuery(String query) {
-        waitForVisibility(searchInput);
         searchInput.setValue(query);
     }
     @Step("Нажатие кнопки 'Найти'")
     public YandexResultsPage goToResultsPage() {
-        waitForClickability(searchButton);
         searchButton.click();
         return new YandexResultsPage();
     }

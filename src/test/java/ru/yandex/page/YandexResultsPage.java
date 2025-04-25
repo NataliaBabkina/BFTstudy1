@@ -1,34 +1,30 @@
 package ru.yandex.page;
 
-import com.codeborne.selenide.SelenideElement;
+
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Condition.attribute;
+import ru.yandex.page.elements.Logo;
+import ru.yandex.page.elements.PopupCloseButton;
 
-public class YandexResultsPage extends BasePage {
 
-    private final SelenideElement logo = $("header a.HeaderLogo");
-    private final SelenideElement logoPath = $("header a.HeaderLogo svg path");
+
+public class YandexResultsPage{
+
+    private final Logo logo = new Logo();
+    private final PopupCloseButton popupCloseButton = new PopupCloseButton();
 
     @Step ("Закрыть всплывающее окно")
-    public void ClosePopup(){
-        SelenideElement popupCloseButton = $(By.xpath("/html/body/div[6]/div[2]/div/div/div/div/div[3]/button"));
-        if (popupCloseButton.exists()) {
-            waitForVisibility(popupCloseButton);
-            popupCloseButton.click();
-        }
+    public void closePopup(){
+        popupCloseButton.closeIfVisible();
     }
 
     @Step("Проверка видимости логотипа")
     public void verifyLogoIsVisible() {
-        waitForVisibility(logo);
+        logo.waitForVisible();
     }
 
     @Step("Проверка цвета логотипа")
     public void verifyLogoColor(String color) {
-        waitForAttribute(logoPath, "fill", color);
+        logo.verifyColor(color);
     }
 }
