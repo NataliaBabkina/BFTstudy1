@@ -2,33 +2,34 @@ package ru.yandex.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Condition.attribute;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 
+import ru.yandex.page.YandexMainPage;
+import ru.yandex.page.YandexResultsPage;
+
 public class YandexTest extends BaseTest {
+
+    private YandexMainPage yandexMainPage;
 
     @BeforeEach
     public void setup() {
         open("https://ya.ru/");
+        yandexMainPage = new YandexMainPage();
+
     }
 
     @Test
     public void searchTest() {
 
-        $("#text").setValue("Тестирование");
+        yandexMainPage.setSearchQuery("Тестирование");
 
-        $("button[type='submit']").click();
+        YandexResultsPage yandexResultsPage = yandexMainPage.goToResultsPage();
 
-        $(By.xpath("/html/body/div[6]/div[2]/div/div/div/div/div[3]/button")).click();
-
-
-        $("header a.HeaderLogo").shouldBe(visible);
-        $("header a.HeaderLogo svg path")
-                .shouldHave(attribute("fill", "#F8604A"));
+        yandexResultsPage.ClosePopup();
+        yandexResultsPage.verifyLogoIsVisible();
+        yandexResultsPage.verifyLogoColor("#F8604A");
 
     }
 }
