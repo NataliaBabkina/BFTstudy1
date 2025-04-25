@@ -1,9 +1,8 @@
 package lesson6;
 
-
 public class Main {
-    public static void main(String[] args){
-    String [] array = {"привет", "ПОКА", "гипербола"};
+    public static void main(String[] args) {
+        String[] array = {"привет", "ПОКА", "гипербола"};
         System.out.println(array[0].toUpperCase());
         System.out.println(array[1].toLowerCase());
         for (String str : array) {
@@ -13,5 +12,12 @@ public class Main {
                 System.out.println(sb);
             }
         }
+        printRandomString(array);
+    }
+
+    public static void printRandomString(String[] array) {
+        int randomIndex = (int) (Math.random() * array.length);
+        System.out.println("Случайная строка: " + array[randomIndex]);
     }
 }
+
